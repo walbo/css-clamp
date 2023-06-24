@@ -3,10 +3,16 @@
  */
 import { cosmiconfigSync } from 'cosmiconfig';
 
+interface Config {
+	minWidth: string | number;
+	maxWidth: string | number;
+	root: string | number;
+}
+
 /**
  * Default configuration.
  */
-const defaultConfig = {
+const defaultConfig: Config = {
 	root: 16,
 	minWidth: 500,
 	maxWidth: 1920,
@@ -18,21 +24,24 @@ const defaultConfig = {
 function clamp(
 	minSize: string | number,
 	maxSize: string | number,
-	minWidth?: string | number,
-	maxWidth?: string | number,
-	rootSize?: string | number,
+	config: Partial<Config> = {},
 ): string {
 	if (!minSize || !maxSize) {
 		return '';
 	}
-	const root = parseFloat(String(rootSize || defaultConfig.root));
 
-	const config = getConfig();
+	// Merge the global and local config
+	const mergedConfig = {
+		...getConfig(),
+		...config,
+	};
+
+	const root = parseFloat(String(mergedConfig.root));
 
 	const minSizeRem = convertToRem(minSize, root);
 	const maxSizeRem = convertToRem(maxSize, root);
-	const minWidthRem = convertToRem(minWidth || config.minWidth, root);
-	const maxWidthRem = convertToRem(maxWidth || config.maxWidth, root);
+	const minWidthRem = convertToRem(mergedConfig.minWidth, root);
+	const maxWidthRem = convertToRem(mergedConfig.maxWidth, root);
 
 	if (
 		[minSizeRem, maxSizeRem, minWidthRem, maxWidthRem].some((v) => isNaN(v))

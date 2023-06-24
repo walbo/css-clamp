@@ -37,13 +37,22 @@ describe('clamp', () => {
 	});
 
 	it('should handle different widths', () => {
-		expect(clamp(8, 16, 100, 200)).toBe('clamp(0.5rem, 0rem + 8vw, 1rem)');
+		expect(
+			clamp(8, 16, {
+				minWidth: 100,
+				maxWidth: 200,
+			}),
+		).toBe('clamp(0.5rem, 0rem + 8vw, 1rem)');
 	});
 
 	it('should handle different root', () => {
-		expect(clamp(8, 16, 100, 200, 20)).toBe(
-			'clamp(0.4rem, 0rem + 8vw, 0.8rem)',
-		);
+		expect(
+			clamp(8, 16, {
+				minWidth: 100,
+				maxWidth: 200,
+				root: 20,
+			}),
+		).toBe('clamp(0.4rem, 0rem + 8vw, 0.8rem)');
 	});
 
 	it('should throw a warning if a unsupported unit is passed', () => {
