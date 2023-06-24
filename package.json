@@ -9,6 +9,10 @@
 		"url": "https://github.com/walbo/css-clamp.git"
 	},
 	"bugs": "https://github.com/walbo/css-clamp/issues",
+	"keywords": [
+		"css",
+		"clamp"
+	],
 	"license": "GPL-2.0-or-later",
 	"type": "module",
 	"engines": {
