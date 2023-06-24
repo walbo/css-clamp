@@ -14,36 +14,56 @@ The `clamp` function takes 3 arguments:
 -   `maxSize`: The maximum size in number, pixels or rems.
 -   `config`: The config object. Optional. The object can have the following
     properties:
-    -   `minWidth`: The minimum viewport width in number, pixels or rems.
-    -   `maxWidth`: The maximum viewport width in number, pixels or rems.
-    -   `root`: The root font size in number or pixels.
+    -   `minWidth`: The minimum viewport width in number, pixels or rems. (default: 500)
+    -   `maxWidth`: The maximum viewport width in number, pixels or rems. (default: 1920)
+    -   `root`: The root font size in number or pixels. (default: 16)
 
 ```js
 import clamp from 'css-clamp';
 
-// With default min and max width
-clamp(16, 32); // 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
-clamp('16px', '32px'); // 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
-clamp('1rem', '2rem'); // 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
+/**
+ * With default min and max width
+ */
 
-// With custom min and max width
+// 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
+clamp(16, 32);
+
+// 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
+clamp('16px', '32px');
+
+// 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
+clamp('1rem', '2rem');
+
+/**
+ *  With custom min and max width
+ */
+
+// 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
 clamp(16, 32, {
 	minWidth: 400,
 	maxWidth: 1000,
-}); // 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
+});
+
+// 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
 clamp('16px', '32px', {
 	minWidth: '400px',
 	maxWidth: '1000px',
-}); // 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
+});
+
+// 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
 clamp('1rem', '2rem', {
 	minWidth: '25rem',
 	maxWidth: '62.5rem',
-}); // 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
+});
 
-// With custom root font size
+/**
+ * With custom root font size
+ */
+
+// 'clamp(0.8rem, 0.2667rem + 2.6667vw, 1.6rem)'
 clamp(16, 32, {
 	root: 20,
-}); // 'clamp(0.8rem, 0.2667rem + 2.6667vw, 1.6rem)'
+});
 ```
 
 ## Setting default config
