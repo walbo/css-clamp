@@ -1,5 +1,6 @@
 {
 	"name": "css-clamp",
+	"version": "1.0.0",
 	"description": "Generate css clamps.",
 	"author": "Petter Walbø Johnsgård",
 	"homepage": "https://github.com/walbo/css-clamp/blob/main/README.md",
