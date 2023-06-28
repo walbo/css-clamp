@@ -39,18 +39,21 @@ clamp('1rem', '2rem');
  */
 
 // 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
+clamp(16, 32, 400, 1000);
 clamp(16, 32, {
 	minWidth: 400,
 	maxWidth: 1000,
 });
 
 // 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
+clamp('16px', '32px', '400px', '1000px');
 clamp('16px', '32px', {
 	minWidth: '400px',
 	maxWidth: '1000px',
 });
 
 // 'clamp(0.5rem, 0.3239rem + 0.5634vw, 1rem)'
+clamp('1rem', '2rem', '25rem', '62.5rem');
 clamp('1rem', '2rem', {
 	minWidth: '25rem',
 	maxWidth: '62.5rem',
