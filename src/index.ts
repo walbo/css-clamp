@@ -18,30 +18,65 @@ const defaultConfig: Config = {
 	maxWidth: 1920,
 };
 
+// Function Overloads
+function clamp(
+	minSize: string | number,
+	maxSize: string | number,
+	config?: Partial<Config>,
+): string;
+
+function clamp(
+	minSize: string | number,
+	maxSize: string | number,
+	minWidth?: string | number,
+	maxWidth?: string | number,
+	root?: string | number,
+): string;
+
 /**
  * Creates a CSS clamp() function that is supported by all modern browsers.
  */
 function clamp(
 	minSize: string | number,
 	maxSize: string | number,
-	config: Partial<Config> = {},
+	configOrMinWidth?: Partial<Config> | string | number,
+	maxWidth?: string | number,
+	root?: string | number,
 ): string {
 	if (!minSize || !maxSize) {
 		return '';
 	}
 
+	let userConfig: Partial<Config> = {};
+
+	if (typeof configOrMinWidth === 'object') {
+		userConfig = configOrMinWidth;
+	} else {
+		if (!!configOrMinWidth) {
+			userConfig.minWidth = configOrMinWidth;
+		}
+
+		if (!!maxWidth) {
+			userConfig.maxWidth = maxWidth;
+		}
+
+		if (!!root) {
+			userConfig.root = root;
+		}
+	}
+
 	// Merge the global and local config
 	const mergedConfig = {
 		...getConfig(),
-		...config,
+		...userConfig,
 	};
 
-	const root = parseFloat(String(mergedConfig.root));
+	const rootSize = parseFloat(String(mergedConfig.root));
 
-	const minSizeRem = convertToRem(minSize, root);
-	const maxSizeRem = convertToRem(maxSize, root);
-	const minWidthRem = convertToRem(mergedConfig.minWidth, root);
-	const maxWidthRem = convertToRem(mergedConfig.maxWidth, root);
+	const minSizeRem = convertToRem(minSize, rootSize);
+	const maxSizeRem = convertToRem(maxSize, rootSize);
+	const minWidthRem = convertToRem(mergedConfig.minWidth, rootSize);
+	const maxWidthRem = convertToRem(mergedConfig.maxWidth, rootSize);
 
 	if (
 		[minSizeRem, maxSizeRem, minWidthRem, maxWidthRem].some((v) => isNaN(v))
